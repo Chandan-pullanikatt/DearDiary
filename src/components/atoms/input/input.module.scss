@@ -1,0 +1,17 @@
+.box{
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+
+    h4{
+        font-family: var(--fw-medium);
+        font-size: var(--fs-md);
+    }
+
+    input{
+        padding: 15px 20px;
+        border-radius: 8px;
+        font-size: var(--fs-md);
+        border: 1px solid var(--light-grey);
+    }
+}

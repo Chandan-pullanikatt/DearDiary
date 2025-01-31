@@ -1,0 +1,43 @@
+.container{
+    display: grid;
+    width: 100%;
+    grid-template-rows: auto 25px;
+    aspect-ratio: 5 / 4;
+    padding: 15px;
+    background-color: rgb(251, 235, 149, 0.4);
+    border-radius: 10px;
+    
+    .content{
+    p{
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-size: var(--fs-md);
+        font-weight: var(--fw-normal);
+        line-height: 25px;
+        color: #3c3d43;
+    
+    }
+    .expanded {
+        display: block;
+
+    }
+    button{
+        background-color: transparent;
+        color: var(--grey);
+        cursor: pointer;
+        text-transform: capitalize;
+        // line-height:30px;
+    }
+    }
+    .footer{
+        display: flex;
+        align-items: center;
+        font-size: var(--fs-sm);
+        color: var(--grey);
+        
+
+    }
+}

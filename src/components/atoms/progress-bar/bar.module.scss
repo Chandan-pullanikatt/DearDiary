@@ -1,0 +1,14 @@
+.container{
+    width: 500px;
+    height: 12px;
+    border-radius: 1000px;
+    background-color: var(--cream-light);
+    overflow: hidden;
+    display: flex;
+    gap: 15px;
+
+    span{
+        background-color: var(--black);
+        border-radius: 1000px;
+    }
+}
