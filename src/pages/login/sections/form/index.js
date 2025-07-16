@@ -11,7 +11,7 @@ function Form() {
     const navigate = useNavigate();
 
     const handleJoinWithEmail = () => {
-        navigate('/Notes');
+        navigate('/notes');
     };
 
     return (
