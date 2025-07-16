@@ -1,6 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
+  "homepage": "https://chandan-pullanikatt.github.io/NotesApp",
   "private": true,
   "dependencies": {
     "@heroicons/react": "^2.2.0",
@@ -16,11 +17,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "start": "craco start",
+  "build": "craco build",
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build"
   },
+
   "eslintConfig": {
     "extends": [
       "react-app",
