@@ -2,13 +2,14 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from "../contexts/ThemeContext";
 import Login from "../pages/login";
+import { HashRouter } from 'react-router-dom';
 import Notes from "../pages/notes";
 import Main from "../layouts/Main";
 
 function App() {
   return (
     <ThemeProvider>
-      <BrowserRouter>
+      <HashRouter>
         <div className="min-h-screen transition-all duration-300">
           <Routes>
             <Route path="/" element={<Login />} />
@@ -17,7 +18,7 @@ function App() {
             </Route>
           </Routes>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     </ThemeProvider>
   );
 }

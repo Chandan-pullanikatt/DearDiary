@@ -4,6 +4,7 @@
   "homepage": "https://chandan-pullanikatt.github.io/NotesApp",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^7.1.0",
     "@heroicons/react": "^2.2.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -17,12 +18,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-  "start": "craco start",
-  "build": "craco build",
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build"
+    "start": "craco start",
+    "build": "craco build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
-
   "eslintConfig": {
     "extends": [
       "react-app",
