@@ -1,7 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "homepage": "https://chandan-pullanikatt.github.io/NotesApp",
+
   "private": true,
   "dependencies": {
     "@craco/craco": "^7.1.0",

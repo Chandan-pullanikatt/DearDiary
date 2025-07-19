@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from "../contexts/ThemeContext";
 import Login from "../pages/login";
 import { HashRouter } from 'react-router-dom';
