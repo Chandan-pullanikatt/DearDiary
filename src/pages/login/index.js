@@ -91,7 +91,7 @@ function Login() {
                 variants={itemVariants}
                 className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-lg"
               >
-                Store all your notes in a simple and intuitive app that helps you enjoy what is most important in life.
+                Organize your thoughts with simple notes or keep a private diary with mood tracking and calendar views.
               </motion.p>
 
               <motion.div
@@ -104,18 +104,32 @@ function Login() {
                   onClick={handleLogin}
                   className="btn-primary flex items-center justify-center space-x-2 text-lg px-8 py-4"
                 >
-                  <span>Get Started</span>
+                  <span>Quick Notes</span>
                   <ArrowRightIcon className="h-5 w-5" />
                 </motion.button>
                 
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={toggleTheme}
+                  onClick={() => navigate('/diary')}
                   className="btn-secondary flex items-center justify-center space-x-2 text-lg px-8 py-4"
                 >
-                  <SparklesIcon className="h-5 w-5" />
-                  <span>{isDark ? 'Light' : 'Dark'} Mode</span>
+                  <span>📖 Personal Diary</span>
+                </motion.button>
+              </motion.div>
+
+              <motion.div
+                variants={itemVariants}
+                className="pt-4"
+              >
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={toggleTheme}
+                  className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 flex items-center space-x-2 transition-colors mx-auto"
+                >
+                  <SparklesIcon className="h-4 w-4" />
+                  <span className="text-sm">{isDark ? 'Light' : 'Dark'} Mode</span>
                 </motion.button>
               </motion.div>
             </div>
@@ -190,3 +204,4 @@ function Login() {
 }
 
 export default Login;
+

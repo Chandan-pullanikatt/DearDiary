@@ -1,12 +1,26 @@
-# 📝 Note.me - Modern Notes App
+# 📝 NotesApp - Modern Notes & Personal Diary
 
-> A stunning, portfolio-level notes application built with React, Tailwind CSS, and Framer Motion
+> A comprehensive personal productivity application featuring note-taking and secure diary functionality, built with React, Tailwind CSS, and Framer Motion
 
 [![React](https://img.shields.io/badge/React-18.3.1-blue.svg)](https://reactjs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.0-38B2AC.svg)](https://tailwindcss.com/)
 [![Framer Motion](https://img.shields.io/badge/Framer%20Motion-Latest-FF0080.svg)](https://www.framer.com/motion/)
 
 ## ✨ Features
+
+### 📝 Quick Notes
+- **Instant Note Creation** - Create and organize notes quickly
+- **Rich Text Support** - Format your notes with clean typography
+- **Color-Coded Notes** - Visual organization with customizable colors
+- **Search & Filter** - Find any note instantly with real-time search
+
+### 📖 Personal Diary (NEW!)
+- **🔐 Password Protected** - Secure your private thoughts with encryption
+- **📅 Calendar Integration** - Visual calendar showing all your diary entries
+- **😊 Mood Tracking** - Track daily moods with beautiful emoji indicators
+- **💾 Auto-Save** - Never lose your thoughts with intelligent auto-saving
+- **📊 Analytics** - Mood statistics and writing streak tracking
+- **🔍 Full-Text Search** - Search across all your diary entries
 
 ### 🎨 Modern UI/UX Design
 - **Glassmorphism Effects** - Beautiful glass-like components with backdrop blur
@@ -70,6 +84,10 @@
 
 4. **Open your browser**
    Navigate to `http://localhost:3000`
+
+5. **Explore Features**
+   - Click "Quick Notes" for instant note-taking
+   - Click "📖 Personal Diary" for secure journaling with mood tracking
 
 ## 🛠️ Built With
 

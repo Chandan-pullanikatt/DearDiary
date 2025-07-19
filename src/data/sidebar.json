@@ -1,8 +1,13 @@
 [
     {
-        "title":"Home",
+        "title": "Notes",
         "icon": "carbon:home",
         "path": "/notes"
+    },
+    {
+        "title": "Personal Diary",
+        "icon": "carbon:book",
+        "path": "/diary"
     },
     {
         "title": "Add Notes",
