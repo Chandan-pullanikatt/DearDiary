@@ -63,31 +63,51 @@
 ### Prerequisites
 - Node.js (v14 or higher)
 - npm or yarn
+- Supabase account (free at [supabase.com](https://supabase.com))
 
-### Installation
+### Quick Setup (5 minutes)
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/notes-app.git
-   cd notes-app
-   ```
-
-2. **Install dependencies**
+1. **Install dependencies**
    ```bash
    npm install
    ```
 
-3. **Start the development server**
+2. **Create environment file** (Optional helper)
+   ```bash
+   npm run setup
+   ```
+   This creates a `.env` template file for you to fill in.
+
+3. **Setup Supabase** (Required for authentication & data storage)
+   
+   a. Go to [supabase.com](https://supabase.com) and create a new project
+   
+   b. In your Supabase dashboard, go to **Settings → API**
+   
+   c. Copy your **Project URL** and **anon/public key**
+   
+   d. Create a `.env` file in your project root:
+   ```env
+   REACT_APP_SUPABASE_URL=https://your-project-ref.supabase.co
+   REACT_APP_SUPABASE_ANON_KEY=your-anon-key-here
+   ```
+   
+   e. In Supabase, go to **SQL Editor** and run the database setup from `SUPABASE_SETUP.md`
+
+4. **Start the development server**
    ```bash
    npm start
    ```
 
-4. **Open your browser**
+5. **Open your browser**
    Navigate to `http://localhost:3000`
 
-5. **Explore Features**
-   - Click "Quick Notes" for instant note-taking
-   - Click "📖 Personal Diary" for secure journaling with mood tracking
+6. **Create an account and explore!**
+   - Sign up with email/password
+   - Access the dashboard
+   - Try creating notes and setting up your diary
+
+> 💡 **Setup Help**: If you see a "Supabase Setup Required" page, follow the in-app instructions or check `SUPABASE_SETUP.md` for detailed setup steps.
 
 ## 🛠️ Built With
 

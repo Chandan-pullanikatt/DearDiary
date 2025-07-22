@@ -6,9 +6,12 @@
   "dependencies": {
     "@craco/craco": "^7.1.0",
     "@heroicons/react": "^2.2.0",
+    "@supabase/supabase-js": "^2.52.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "bcryptjs": "^3.0.2",
+    "crypto-js": "^4.2.0",
     "framer-motion": "^12.23.6",
     "react": "^18.3.1",
     "react-calendar": "^6.0.0",
@@ -22,6 +25,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "setup": "node setup.js",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
