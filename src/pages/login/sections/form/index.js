@@ -20,7 +20,7 @@ function Form() {
             <div className={styles.form}>
                 <Button text="Join with Google" icon="bi:google" className={styles.google} />
                 <div className={styles.option}>
-                    <span>or join with email address</span>
+                    <span>or</span>
                 </div>
                 <article className={styles.details}>
                     <Input 

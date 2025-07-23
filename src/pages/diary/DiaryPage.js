@@ -328,10 +328,10 @@ const DiaryPage = () => {
           <div className="flex items-center space-x-4">
             <button
               onClick={() => navigate('/dashboard')}
-              className="flex items-center space-x-2 text-gray-700 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-300 focus-visible:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md"
+              className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-300 focus-visible:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md"
             >
               <ArrowLeftIcon className="h-5 w-5" />
-              <span>Dashboard</span>
+              <span className="text-gray-700 dark:text-gray-200">Dashboard</span>
             </button>
             <div className="h-6 w-px bg-gray-300 dark:bg-gray-700" />
             <div className="flex items-center space-x-3">
@@ -415,7 +415,7 @@ const DiaryPage = () => {
               <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">
                 {entries.length}
               </div>
-              <div className="text-sm font-medium text-gray-500 dark:text-slate-400 mt-1">
+              <div className="text-sm font-medium text-gray-600 dark:text-gray-300 mt-1">
                 Total Entries
               </div>
             </motion.div>
@@ -427,7 +427,7 @@ const DiaryPage = () => {
               <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">
                 {new Date().toLocaleDateString('en-US', { month: 'long' })}
               </div>
-              <div className="text-sm font-medium text-gray-500 dark:text-slate-400 mt-1">
+              <div className="text-sm font-medium text-gray-600 dark:text-gray-300 mt-1">
                 Current Month
               </div>
             </motion.div>
@@ -439,7 +439,7 @@ const DiaryPage = () => {
               <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">
                 🔒
               </div>
-              <div className="text-sm font-medium text-gray-500 dark:text-slate-400 mt-1">
+              <div className="text-sm font-medium text-gray-600 dark:text-gray-300 mt-1">
                 Private & Secure
               </div>
             </motion.div>
@@ -481,7 +481,7 @@ const DiaryPage = () => {
                 </ResponsiveContainer>
               </div>
             ) : (
-              <div className="text-center text-gray-600 dark:text-slate-400">
+              <div className="text-center text-gray-700 dark:text-gray-200">
                 <p>No mood data yet. Start logging your moods to see insights here!</p>
               </div>
             )}
@@ -504,21 +504,28 @@ const DiaryPage = () => {
                 <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">
                   {entries.length === 0 ? 'Start your diary journey' : 'No matching entries'}
                 </h3>
-                <p className="text-gray-700 dark:text-slate-300 mb-6 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
                   {entries.length === 0 
                     ? 'Write your first diary entry to capture your thoughts and memories.' 
                     : 'Try adjusting your search terms to find what you\'re looking for.'
                   }
                 </p>
-                {entries.length === 0 && (
-                  <button
-                    onClick={() => openModal()}
-                    className="inline-flex items-center space-x-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-medium rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 shadow-md transition-colors duration-300"
-                  >
-                    <PlusIcon className="h-5 w-5" />
-                    <span>Write First Entry</span>
-                  </button>
-                )}
+                <div className="flex justify-center">
+  {entries.length === 0 && (
+    <motion.button
+      variants={itemVariants}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={() => openModal()}
+      className="flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-bold rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 shadow-md transition-colors duration-300 whitespace-nowrap w-max"
+    >
+      <PlusIcon className="h-5 w-5 flex-shrink-0" />
+      <span className="whitespace-nowrap">Write First Entry</span>
+    </motion.button>
+  )}
+</div>
+
+
               </motion.div>
             ) : (
               <div className="space-y-6">
@@ -700,24 +707,23 @@ const DiaryPage = () => {
                   <button
                     onClick={closeModal}
                     disabled={modalLoading}
-                    className="px-6 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg"
+                    className="px-6 py-2 rounded-lg text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-700"
                   >
                     Cancel
                   </button>
                   <motion.button
                     onClick={editingEntry ? handleUpdateEntry : handleCreateEntry}
                     disabled={modalLoading}
-                    className="px-6 py-2 font-bold rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:text-white"
+                    className="px-6 py-2 font-bold rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 bg-gray-200 hover:bg-gray-300 dark:bg-indigo-600 dark:hover:bg-indigo-700"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     {modalLoading ? (
                       <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                     ) : (
-                      <span>{editingEntry ? 'Update Entry' : 'Save Entry'}</span>
+                      <span className={isDark ? 'text-white' : 'text-gray-800'}>{editingEntry ? 'Update Entry' : 'Save Entry'}</span>
                     )}
                   </motion.button>
-
                 </div>
               </motion.div>
             </div>
