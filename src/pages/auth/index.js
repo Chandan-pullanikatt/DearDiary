@@ -169,18 +169,20 @@ const AuthPage = () => {
         animate="visible"
         className="w-full max-w-md"
       >
-        {/* Logo and Title */}
-        <motion.div variants={itemVariants} className="text-center mb-8">
-          <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
-            <span className="text-white font-bold text-2xl">N</span>
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-            Note.me
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            Your personal notes and diary companion
-          </p>
-        </motion.div>
+        <div className="flex justify-center">
+  <motion.div variants={itemVariants} className="text-center mb-8">
+    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto">
+      <span className="text-white font-bold text-2xl">DD</span>
+    </div>
+    <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+      DearDiary
+    </h1>
+    <p className="text-gray-600 dark:text-gray-400">
+      Your personal notes and diary companion
+    </p>
+  </motion.div>
+</div>
+
 
         {/* Auth Form */}
         <motion.div

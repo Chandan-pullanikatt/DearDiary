@@ -73,11 +73,11 @@ const Dashboard = () => {
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-lg">N</span>
+            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+              <span className="text-white font-bold text-lg">DD</span>
             </div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-              Note.me
+              DearDiary
             </h1>
           </div>
 

@@ -17,7 +17,7 @@ const ProtectedRoute = ({ children }) => {
           className="text-center"
         >
           {/* Loading Spinner */}
-          <div className="w-16 h-16 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin mx-auto mb-4"></div>
           
           {/* Loading Text */}
           <motion.p
@@ -37,9 +37,9 @@ const ProtectedRoute = ({ children }) => {
             className="mt-8"
           >
             <div className="w-12 h-12 mx-auto bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-lg">N</span>
+              <span className="text-white font-bold text-lg">DD</span>
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Note.me</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">DearDiary</p>
           </motion.div>
         </motion.div>
       </div>

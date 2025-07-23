@@ -9,7 +9,7 @@ import LoginImg from '../../assets/login.png';
 function Login() {
   const navigate = useNavigate();
   const { isDark, toggleTheme } = useTheme();
-  const { signInWithGoogle } = useAuth();
+  const { user, signInWithGoogle } = useAuth();
 
   const handleGoogleLogin = async () => {
     try {
@@ -75,12 +75,12 @@ function Login() {
           {/* Left Side - Content */}
           <motion.div variants={itemVariants} className="text-center lg:text-left space-y-8">
             {/* Logo */}
-            <div className="flex items-center justify-center lg:justify-start space-x-3 mb-8">
-              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-lg">N</span>
+            <div className="flex flex-col items-center justify-center space-y-3 mb-8">
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center">
+                <span className="text-white font-bold text-lg">DD</span>
               </div>
               <h1 className="text-3xl font-display font-bold text-gradient">
-                Note.me
+                DearDiary
               </h1>
             </div>
 
