@@ -14,7 +14,7 @@ import { useTheme } from '../../contexts/ThemeContext'
 
 const Dashboard = () => {
   const { user, signOut } = useAuth()
-  const { toggleTheme } = useTheme()
+  const { isDark, toggleTheme } = useTheme()
   const navigate = useNavigate()
 
   const handleLogout = async () => {
@@ -59,14 +59,6 @@ const Dashboard = () => {
         duration: 0.5,
         ease: "easeOut"
       }
-    },
-    hover: {
-      y: -8,
-      scale: 1.02,
-      transition: {
-        duration: 0.2,
-        ease: "easeOut"
-      }
     }
   }
 
@@ -84,7 +76,7 @@ const Dashboard = () => {
             <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
               <span className="text-white font-bold text-lg">N</span>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
               Note.me
             </h1>
           </div>
@@ -100,7 +92,10 @@ const Dashboard = () => {
             </button>
 
             {/* User Info */}
-            <div className="flex items-center space-x-3 px-3 py-2 bg-white/20 dark:bg-black/20 rounded-full backdrop-blur-sm">
+            <div 
+              className="flex items-center space-x-3 px-3 py-2 bg-white/20 dark:bg-black/20 rounded-full backdrop-blur-sm cursor-pointer"
+              onClick={() => navigate('/profile')}
+            >
               <UserCircleIcon className="h-6 w-6 text-gray-600 dark:text-gray-400" />
               <span className="text-sm font-medium text-gray-900 dark:text-white hidden sm:block">
                 {user?.email}
@@ -153,7 +148,6 @@ const Dashboard = () => {
             {/* Notes Card */}
             <motion.div
               variants={cardVariants}
-              whileHover="hover"
               onClick={() => navigate('/notes')}
               className="glass-effect rounded-3xl p-8 border border-white/20 dark:border-white/10 backdrop-blur-xl cursor-pointer group"
             >
@@ -197,14 +191,13 @@ const Dashboard = () => {
             {/* Diary Card */}
             <motion.div
               variants={cardVariants}
-              whileHover="hover"
               onClick={() => navigate('/verify-pin')}
               className="glass-effect rounded-3xl p-8 border border-white/20 dark:border-white/10 backdrop-blur-xl cursor-pointer group"
             >
               <div className="text-center">
                 {/* Icon */}
                 <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <BookOpenIcon className="h-10 w-10 text-white" />
+                  <BookOpenIcon className={`h-10 w-10 ${isDark ? 'text-white' : 'text-gray-900'}`} />
                 </div>
 
                 {/* Title */}

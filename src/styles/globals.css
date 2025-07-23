@@ -10,7 +10,7 @@
   }
   
   body {
-    @apply bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900 min-h-screen font-sans antialiased;
+    @apply bg-gray-50 dark:bg-slate-900 min-h-screen font-sans antialiased;
     transition: background 0.3s ease;
   }
 
@@ -49,7 +49,23 @@
   .text-gradient {
     @apply bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent;
   }
+
+  .dark-text-white {
+    @apply dark:text-white;
+  }
   
+  .btn-new-entry {
+    @apply flex items-center space-x-2 px-6 py-3 text-white font-medium rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 shadow-md transition-colors duration-300;
+  }
+
+  .btn-new-entry.dark {
+    @apply bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 focus:ring-indigo-500 dark:focus:ring-offset-slate-900;
+  }
+
+  .btn-new-entry.light {
+    @apply bg-gray-800 hover:bg-gray-700 active:bg-gray-900 focus:ring-gray-500;
+  }
+
   .line-clamp-4 {
     overflow: hidden;
     display: -webkit-box;
@@ -346,4 +362,18 @@
 
 .password-strength-strong {
   @apply bg-green-500;
+}
+
+html.no-scroll,
+body.no-scroll {
+  overflow: hidden !important;
+  height: 100% !important;
+}
+
+.modal-backdrop-light {
+  @apply bg-white/80 backdrop-blur-sm;
+}
+
+.modal-backdrop-dark {
+  @apply bg-black/70 backdrop-blur-sm;
 }

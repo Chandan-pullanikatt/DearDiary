@@ -61,6 +61,7 @@ CREATE TABLE diary_entries (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
   content TEXT NOT NULL,
+  mood TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -127,5 +128,4 @@ After setting up the environment variables, run:
 ```bash
 npm start
 ```
-
 The application will now use Supabase for authentication and data storage! 

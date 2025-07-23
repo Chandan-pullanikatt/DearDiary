@@ -12,7 +12,7 @@ function Navbar() {
          <Icon icon={"material-symbols:search"} />
         <Input
         type="text" 
-        placeholder="Search Notes"
+        placeholder="  Search Notes"
          value={searchText}
           className={styles["field"]} 
           onChange={(e) => setSearchText(e.target.value)} />

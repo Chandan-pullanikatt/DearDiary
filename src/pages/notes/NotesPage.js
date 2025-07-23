@@ -228,9 +228,9 @@ const NotesPage = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900">
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600 dark:text-gray-400 font-medium">Loading your notes...</p>
         </div>
       </div>
@@ -238,7 +238,7 @@ const NotesPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
       {/* Header */}
       <motion.header
         initial={{ opacity: 0, y: -20 }}
@@ -250,13 +250,13 @@ const NotesPage = () => {
           <div className="flex items-center space-x-4">
             <button
               onClick={() => navigate('/dashboard')}
-              className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              className="flex items-center space-x-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
               <ArrowLeftIcon className="h-5 w-5" />
               <span>Dashboard</span>
             </button>
-            <div className="h-6 w-px bg-gray-300 dark:bg-gray-600" />
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <div className="h-6 w-px bg-gray-200 dark:bg-gray-700" />
+            <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-200">
               Quick Notes
             </h1>
           </div>
@@ -265,13 +265,13 @@ const NotesPage = () => {
           <div className="flex items-center space-x-4">
             <button
               onClick={toggleTheme}
-              className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors rounded-lg hover:bg-white/20 dark:hover:bg-black/20"
+              className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800"
             >
               🌙
             </button>
             <button
               onClick={handleLogout}
-              className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
               Logout
             </button>
@@ -287,18 +287,18 @@ const NotesPage = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="flex flex-col sm:flex-row gap-4 mb-8"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8"
           >
             {/* Search Bar */}
-            <motion.div variants={itemVariants} className="flex-1">
+            <motion.div variants={itemVariants} className="flex-1 max-w-lg">
               <div className="relative">
-                <MagnifyingGlassIcon className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                <MagnifyingGlassIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Search notes..."
+                  placeholder="  Search notes..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white/20 dark:bg-black/20 border border-white/30 dark:border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 backdrop-blur-sm transition-all duration-200"
+                  className="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all duration-200"
                 />
               </div>
             </motion.div>
@@ -309,7 +309,7 @@ const NotesPage = () => {
               onClick={() => openModal()}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-xl hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+              className="flex items-center space-x-2 px-6 py-3 bg-indigo-600 text-white font-medium rounded-xl hover:bg-indigo-700 active:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
             >
               <PlusIcon className="h-5 w-5" />
               <span>Add Note</span>
@@ -327,13 +327,13 @@ const NotesPage = () => {
                 variants={itemVariants}
                 className="text-center py-12"
               >
-                <div className="w-24 h-24 mx-auto mb-6 bg-gray-100 dark:bg-gray-800 rounded-2xl flex items-center justify-center">
+                <div className="w-24 h-24 mx-auto mb-6 bg-gray-200 dark:bg-gray-800 rounded-2xl flex items-center justify-center">
                   <DocumentTextIcon className="h-12 w-12 text-gray-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
                   {notes.length === 0 ? 'No notes yet' : 'No matching notes'}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-6">
+                <p className="text-gray-500 dark:text-gray-400 mb-6">
                   {notes.length === 0 
                     ? 'Create your first note to get started!' 
                     : 'Try adjusting your search terms'
@@ -342,7 +342,7 @@ const NotesPage = () => {
                 {notes.length === 0 && (
                   <button
                     onClick={() => openModal()}
-                    className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-xl hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+                    className="inline-flex items-center space-x-2 px-6 py-3 bg-indigo-600 text-white font-medium rounded-xl hover:bg-indigo-700 active:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
                   >
                     <PlusIcon className="h-5 w-5" />
                     <span>Create First Note</span>
@@ -360,12 +360,12 @@ const NotesPage = () => {
                       animate="visible"
                       exit="exit"
                       custom={index}
-                      className="glass-effect rounded-2xl p-6 border border-white/20 dark:border-white/10 backdrop-blur-xl group hover:shadow-lg transition-all duration-200"
+                      className="bg-white dark:bg-gray-800/50 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 group hover:shadow-lg transition-all duration-200"
                     >
                       {/* Note Header */}
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white truncate">
+                          <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 truncate">
                             {note.title}
                           </h3>
                           <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -375,13 +375,13 @@ const NotesPage = () => {
                         <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
                           <button
                             onClick={() => openModal(note)}
-                            className="p-2 text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors rounded-lg hover:bg-white/20 dark:hover:bg-black/20"
+                            className="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
                           >
                             <PencilIcon className="h-4 w-4" />
                           </button>
                           <button
                             onClick={() => setDeleteConfirm(note.id)}
-                            className="p-2 text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors rounded-lg hover:bg-white/20 dark:hover:bg-black/20"
+                            className="p-2 text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
                           >
                             <TrashIcon className="h-4 w-4" />
                           </button>
@@ -397,7 +397,7 @@ const NotesPage = () => {
 
                       {/* Note Footer */}
                       {note.updated_at !== note.created_at && (
-                        <div className="mt-4 pt-4 border-t border-gray-200/20 dark:border-gray-700/20">
+                        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                           <p className="text-xs text-gray-500 dark:text-gray-400">
                             Updated {formatDate(note.updated_at)}
                           </p>
@@ -427,15 +427,15 @@ const NotesPage = () => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-2xl glass-effect rounded-3xl p-8 border border-white/20 dark:border-white/10 backdrop-blur-xl"
+              className="w-full max-w-2xl bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-200 dark:border-gray-800"
             >
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">
                   {editingNote ? 'Edit Note' : 'Create Note'}
                 </h2>
                 <button
                   onClick={closeModal}
-                  className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors rounded-lg hover:bg-white/20 dark:hover:bg-black/20"
+                  className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
                   ✕
                 </button>
@@ -457,7 +457,7 @@ const NotesPage = () => {
                     type="text"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    className="w-full px-4 py-3 bg-white/20 dark:bg-black/20 border border-white/30 dark:border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 backdrop-blur-sm transition-all duration-200"
+                    className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all duration-200"
                     placeholder="Enter note title"
                   />
                 </div>
@@ -470,7 +470,7 @@ const NotesPage = () => {
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     rows={8}
-                    className="w-full px-4 py-3 bg-white/20 dark:bg-black/20 border border-white/30 dark:border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 backdrop-blur-sm transition-all duration-200 resize-none"
+                    className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all duration-200 resize-none"
                     placeholder="Write your note content here..."
                   />
                 </div>
@@ -480,14 +480,14 @@ const NotesPage = () => {
                 <button
                   onClick={closeModal}
                   disabled={modalLoading}
-                  className="px-6 py-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                  className="px-6 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={editingNote ? handleUpdateNote : handleCreateNote}
                   disabled={modalLoading}
-                  className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-xl hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center space-x-2"
+                  className="px-6 py-3 bg-indigo-600 text-white font-medium rounded-xl hover:bg-indigo-700 active:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center space-x-2"
                 >
                   {modalLoading ? (
                     <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -511,7 +511,7 @@ const NotesPage = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+            className="fixed inset-.0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50"
             onClick={() => setDeleteConfirm(null)}
           >
             <motion.div
@@ -519,13 +519,13 @@ const NotesPage = () => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-md glass-effect rounded-3xl p-8 border border-white/20 dark:border-white/10 backdrop-blur-xl text-center"
+              className="w-full max-w-md bg-white dark:bg-gray-800 rounded-3xl p-8 border border-gray-200 dark:border-gray-700 text-center"
             >
               <div className="w-16 h-16 mx-auto mb-4 bg-red-100 dark:bg-red-900/30 rounded-2xl flex items-center justify-center">
                 <TrashIcon className="h-8 w-8 text-red-600 dark:text-red-400" />
               </div>
               
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2">
                 Delete Note
               </h3>
               
@@ -536,7 +536,7 @@ const NotesPage = () => {
               <div className="flex justify-center space-x-4">
                 <button
                   onClick={() => setDeleteConfirm(null)}
-                  className="px-6 py-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                  className="px-6 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-colors"
                 >
                   Cancel
                 </button>

@@ -99,6 +99,32 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  // Sign in with Google
+  const signInWithGoogle = async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/dashboard`
+        }
+      })
+      
+      if (error) throw error
+      
+      return { data, error: null }
+    } catch (error) {
+      console.error('Error signing in with Google:', error)
+      setError(error.message)
+      return { data: null, error: error.message }
+    } finally {
+      // Supabase handles the redirect, so loading state might not need to be reset here
+      // setLoading(false)
+    }
+  }
+
   // Sign out
   const signOut = async () => {
     try {
@@ -188,7 +214,8 @@ export const AuthProvider = ({ children }) => {
     updatePassword,
     isAuthenticated,
     getUserId,
-    setError
+    setError,
+    signInWithGoogle
   }
 
   return (

@@ -5,10 +5,12 @@ import {
   LockClosedIcon, 
   KeyIcon,
   ArrowLeftIcon,
-  ExclamationTriangleIcon
+  ExclamationTriangleIcon,
+  SparklesIcon
 } from '@heroicons/react/24/outline'
 import { useAuth } from '../../contexts/AuthContext'
 import { pinUtils } from '../../utils/pin'
+import { useTheme } from '../../contexts/ThemeContext'
 
 const VerifyPin = () => {
   const [pin, setPin] = useState(['', '', '', ''])
@@ -18,6 +20,7 @@ const VerifyPin = () => {
   const [checkingPin, setCheckingPin] = useState(true)
   
   const { getUserId } = useAuth()
+  const { isDark, toggleTheme } = useTheme()
   const navigate = useNavigate()
   const inputRefs = [useRef(), useRef(), useRef(), useRef()]
 
@@ -173,18 +176,28 @@ const VerifyPin = () => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="w-full max-w-md"
+        className="w-full max-w-sm"
       >
-        {/* Back Button */}
-        <motion.button
-          variants={itemVariants}
-          onClick={() => navigate('/dashboard')}
-          className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors mb-6"
-        >
-          <ArrowLeftIcon className="h-4 w-4" />
-          <span>Back to Dashboard</span>
-        </motion.button>
+        {/* Header Actions */}
+        <div className="flex items-center justify-between mb-6">
+          {/* Back Button */}
+          <motion.button
+            variants={itemVariants}
+            onClick={() => navigate('/dashboard')}
+            className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+          >
+            <ArrowLeftIcon className="h-4 w-4" />
+            <span>Back to Dashboard</span>
+          </motion.button>
 
+          <button
+            onClick={toggleTheme}
+            className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors rounded-lg hover:bg-white/20 dark:hover:bg-black/20"
+          >
+            <SparklesIcon className="h-5 w-5" />
+          </button>
+        </div>
+        
         {/* Main Card */}
         <motion.div
           variants={itemVariants}
@@ -194,9 +207,9 @@ const VerifyPin = () => {
           <div className="text-center mb-8">
             <motion.div
               variants={itemVariants}
-              className="w-20 h-20 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center"
+              className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center"
             >
-              <LockClosedIcon className="w-10 h-10 text-white" />
+              <LockClosedIcon className={`w-8 h-8 ${isDark ? 'text-white' : 'text-gray-900'}`} />
             </motion.div>
             
             <motion.h1 
@@ -218,7 +231,7 @@ const VerifyPin = () => {
           <motion.div
             variants={pinInputVariants}
             animate={error ? "error" : "visible"}
-            className="flex justify-center space-x-4 mb-6"
+            className="flex justify-center space-x-3 mb-6"
           >
             {pin.map((digit, index) => (
               <input
@@ -230,11 +243,11 @@ const VerifyPin = () => {
                 value={digit}
                 onChange={(e) => handlePinChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
-                className={`w-14 h-14 text-center text-2xl font-bold bg-white/20 dark:bg-black/20 border ${
+                className={`w-12 h-12 text-center text-2xl font-bold bg-white/20 dark:bg-black/20 border ${
                   error 
                     ? 'border-red-300 dark:border-red-500' 
-                    : 'border-white/30 dark:border-white/20'
-                } rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 text-gray-900 dark:text-white backdrop-blur-sm transition-all duration-200`}
+                    : isDark ? 'border-white/30' : 'border-gray-300'
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 text-gray-900 dark:text-white backdrop-blur-sm transition-all duration-200`}
                 disabled={isLoading}
               />
             ))}
@@ -276,7 +289,11 @@ const VerifyPin = () => {
               disabled={isLoading || pin.join('').length !== 4}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full py-3 px-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-xl hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-2"
+              className={`w-full py-3 px-4 font-medium rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-2 ${
+                isDark
+                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600'
+                  : 'bg-gray-900 text-white hover:bg-gray-800'
+              }`}
             >
               {isLoading ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
