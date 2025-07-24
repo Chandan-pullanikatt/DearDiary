@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/DearDiary/static/css/main.d9b26e83.css",
-    "main.js": "/DearDiary/static/js/main.79bdfd41.js",
+    "main.js": "/DearDiary/static/js/main.ab99ff43.js",
     "index.html": "/DearDiary/index.html",
     "main.d9b26e83.css.map": "/DearDiary/static/css/main.d9b26e83.css.map",
-    "main.79bdfd41.js.map": "/DearDiary/static/js/main.79bdfd41.js.map"
+    "main.ab99ff43.js.map": "/DearDiary/static/js/main.ab99ff43.js.map"
   },
   "entrypoints": [
     "static/css/main.d9b26e83.css",
-    "static/js/main.79bdfd41.js"
+    "static/js/main.ab99ff43.js"
   ]
 }
