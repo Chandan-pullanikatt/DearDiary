@@ -5,6 +5,7 @@ import { ThemeProvider } from "../contexts/ThemeContext";
 import { AuthProvider } from "../contexts/AuthContext";
 import ProtectedRoute from "../components/ProtectedRoute";
 import SupabaseSetupRequired from "../components/SupabaseSetupRequired";
+import { Toaster } from 'react-hot-toast';
 
 // Pages
 import AuthPage from "../pages/auth";
@@ -72,6 +73,7 @@ function App() {
       <AuthProvider>
         <HashRouter>
           <div className="min-h-screen transition-all duration-300">
+            <Toaster position="top-center" reverseOrder={false} />
             <Routes>
               {/* Public Routes */}
               <Route path="/login" element={<AuthPage />} />

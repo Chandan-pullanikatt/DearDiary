@@ -90,8 +90,8 @@ const AuthPage = () => {
         if (error) {
           setFormError(error)
         } else {
-          setSuccessMessage('Account created! Please check your email to verify your account.')
-          setIsLogin(true)
+          setSuccessMessage('Please check your email for a confirmation link.')
+          // setIsLogin(true) // Keep user on the sign-up view to see the message
           setEmail('')
           setPassword('')
           setConfirmPassword('')
