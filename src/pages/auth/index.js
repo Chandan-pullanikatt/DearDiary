@@ -11,6 +11,8 @@ import {
 } from '@heroicons/react/24/outline'
 import { useAuth } from '../../contexts/AuthContext'
 import { useTheme } from '../../contexts/ThemeContext'
+import ForgotPasswordModal from '../../components/modals/ForgotPasswordModal'
+import { supabase } from '../../config/supabase'
 
 const GoogleIcon = (props) => (
   <svg {...props} viewBox="0 0 24 24">
@@ -32,19 +34,33 @@ const AuthPage = () => {
   const [formError, setFormError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
+  const [isForgotPasswordModalOpen, setForgotPasswordModalOpen] = useState(false)
 
-  const { signIn, signUp, signInWithGoogle, error: authError, loading, isAuthenticated } = useAuth()
+  const { signIn, signUp, signInWithGoogle, error: authError, loading, isAuthenticated, isPasswordRecovery } = useAuth()
   const { isDark, toggleTheme } = useTheme()
   const navigate = useNavigate()
   const location = useLocation()
 
+  // Handle password recovery
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        navigate('/auth/update-password');
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
+
   // Redirect if already authenticated
   useEffect(() => {
-    if (isAuthenticated() && !loading) {
+    if (isPasswordRecovery) {
+      navigate('/auth/update-password', { replace: true });
+    } else if (isAuthenticated() && !loading) {
       const redirectTo = location.state?.from?.pathname || '/dashboard'
       navigate(redirectTo, { replace: true })
     }
-  }, [isAuthenticated, loading, navigate, location])
+  }, [isAuthenticated, loading, navigate, location, isPasswordRecovery])
 
   // Clear errors when switching modes
   useEffect(() => {
@@ -296,6 +312,26 @@ const AuthPage = () => {
               </div>
             </div>
 
+            {/* Forgot Password Link */}
+            <AnimatePresence>
+              {isLogin && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="text-right"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setForgotPasswordModalOpen(true)}
+                    className="text-sm font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
+                  >
+                    Forgot Password?
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             {/* Confirm Password Input (Signup only) */}
             <AnimatePresence>
               {!isLogin && (
@@ -396,6 +432,11 @@ const AuthPage = () => {
           <p>🔒 Your data is encrypted and secure</p>
         </motion.div>
       </motion.div>
+
+      <ForgotPasswordModal
+        isOpen={isForgotPasswordModalOpen}
+        onClose={() => setForgotPasswordModalOpen(false)}
+      />
     </div>
   )
 }

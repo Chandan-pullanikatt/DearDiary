@@ -14,6 +14,8 @@ import NotesPage from "../pages/notes/NotesPage";
 import DiaryPage from "../pages/diary/DiaryPage";
 import VerifyPin from "../pages/pin/VerifyPin";
 import SetPin from "../pages/pin/SetPin";
+import UpdatePasswordPage from "../pages/auth/UpdatePasswordPage";
+import AuthLayout from "../pages/auth/AuthLayout";
 
 function App() {
   const [supabaseConfigured, setSupabaseConfigured] = useState(null);
@@ -75,9 +77,12 @@ function App() {
           <div className="min-h-screen transition-all duration-300">
             <Toaster position="top-center" reverseOrder={false} />
             <Routes>
-              {/* Public Routes */}
-              <Route path="/login" element={<AuthPage />} />
-              
+              {/* Auth Routes */}
+              <Route path="/auth" element={<AuthLayout />}>
+                <Route index element={<AuthPage />} />
+                <Route path="update-password" element={<UpdatePasswordPage />} />
+              </Route>
+
               {/* Protected Routes */}
               <Route 
                 path="/dashboard" 

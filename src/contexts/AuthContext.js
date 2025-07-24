@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [session, setSession] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [isPasswordRecovery, setIsPasswordRecovery] = useState(false)
 
   useEffect(() => {
     // Get initial session
@@ -43,6 +44,11 @@ export const AuthProvider = ({ children }) => {
         console.log('Auth state changed:', event, session)
         setSession(session)
         setUser(session?.user ?? null)
+        if (event === 'PASSWORD_RECOVERY') {
+          setIsPasswordRecovery(true)
+        } else {
+          setIsPasswordRecovery(false)
+        }
         setLoading(false)
         setError(null)
       }
@@ -216,7 +222,8 @@ export const AuthProvider = ({ children }) => {
     isAuthenticated,
     getUserId,
     setError,
-    signInWithGoogle
+    signInWithGoogle,
+    isPasswordRecovery,
   }
 
   return (
