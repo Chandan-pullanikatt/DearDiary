@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
 
       // Handle OAuth redirect
       if (event === 'SIGNED_IN' && window.location.hash) {
-        window.history.replaceState({}, document.title, '/')
+        window.history.replaceState({}, document.title, '/DearDiary/')
       }
 
       setSession(session)
