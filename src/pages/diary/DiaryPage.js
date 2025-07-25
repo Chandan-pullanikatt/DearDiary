@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react'
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
@@ -13,6 +13,7 @@ import {
   CalendarDaysIcon,
   LockClosedIcon,
   ChartPieIcon,
+  MicrophoneIcon,
 } from '@heroicons/react/24/outline'
 import { useAuth } from '../../contexts/AuthContext'
 import { useTheme } from '../../contexts/ThemeContext'
@@ -34,6 +35,8 @@ const DiaryPage = () => {
   const [modalLoading, setModalLoading] = useState(false)
   const [deleteConfirm, setDeleteConfirm] = useState(null)
   const [mood, setMood] = useState('')
+  const [isListening, setIsListening] = useState(false)
+  const recognitionRef = useRef(null)
 
   // Modal form state
   const [content, setContent] = useState('')
@@ -56,6 +59,46 @@ const DiaryPage = () => {
       document.body.style.overflow = originalStyle
     }
   }, [isModalOpen])
+
+  useEffect(() => {
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition
+    if (!SpeechRecognition) {
+      toast.error('Speech recognition is not supported in this browser.')
+      return
+    }
+
+    const recognition = new SpeechRecognition()
+    recognition.continuous = false
+    recognition.interimResults = false
+    recognition.lang = 'en-US'
+
+    recognition.onstart = () => {
+      setIsListening(true)
+    }
+
+    recognition.onend = () => {
+      setIsListening(false)
+    }
+
+    recognition.onerror = event => {
+      console.error('Speech recognition error:', event.error)
+      toast.error(`Speech recognition error: ${event.error}`)
+      setIsListening(false)
+    }
+
+    recognition.onresult = event => {
+      const transcript = Array.from(event.results)
+        .map(result => result[0])
+        .map(result => result.transcript)
+        .join('')
+      setContent(prevContent =>
+        prevContent ? prevContent.trim() + ' ' + transcript : transcript
+      )
+    }
+
+    recognitionRef.current = recognition
+  }, [])
 
   // Load diary entries from Supabase - wrapped in useCallback to fix dependency warning
   const loadEntries = useCallback(async () => {
@@ -181,6 +224,24 @@ const DiaryPage = () => {
       console.error('Error deleting diary entry:', error)
       setError('Failed to delete diary entry')
       toast.error('❌ Failed to delete diary entry')
+    }
+  }
+
+  const handleListen = () => {
+    if (isListening || !recognitionRef.current) {
+      return
+    }
+
+    if (!recognitionRef.current) {
+      toast.error('Speech recognition not initialized.')
+      return
+    }
+
+    try {
+      recognitionRef.current.start()
+    } catch (err) {
+      console.error('Error starting speech recognition:', err)
+      toast.error('Could not start listening. Please check microphone permissions.')
     }
   }
 
@@ -688,16 +749,41 @@ const DiaryPage = () => {
 
                     {/* Text Area */}
                     <div>
-                      <label className="block text-base font-semibold text-gray-800 dark:text-gray-200 mb-3">
-                        What's on your mind?
-                      </label>
+                      <div className="flex justify-between items-center mb-3">
+                        <label
+                          htmlFor="diary-entry-content"
+                          className="block text-base font-semibold text-gray-800 dark:text-gray-200"
+                        >
+                          What's on your mind?
+                        </label>
+                        <button
+                          type="button"
+                          onClick={handleListen}
+                          disabled={isListening || !recognitionRef.current}
+                          className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 disabled:cursor-not-allowed disabled:opacity-50 ${
+                            isListening
+                              ? 'bg-red-500 text-white shadow-lg animate-pulse'
+                              : 'bg-white text-gray-700 hover:bg-gray-100 dark:bg-slate-700 dark:text-gray-200 dark:hover:bg-slate-600 border border-gray-300 dark:border-slate-600'
+                          }`}
+                        >
+                          <MicrophoneIcon className="h-5 w-5" />
+                          <span>{isListening ? 'Listening...' : 'Speak'}</span>
+                        </button>
+                      </div>
                       <textarea
+                        id="diary-entry-content"
                         value={content}
-                        onChange={(e) => setContent(e.target.value)}
+                        onChange={e => setContent(e.target.value)}
                         rows={8}
                         className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         placeholder="Write about your day, thoughts, feelings, or anything that comes to mind..."
                       />
+                      {isListening && (
+                        <p className="text-sm text-center text-gray-600 dark:text-gray-400 mt-2">
+                          The microphone will turn off automatically after a
+                          pause.
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
