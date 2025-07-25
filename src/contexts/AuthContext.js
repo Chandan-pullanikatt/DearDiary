@@ -39,20 +39,26 @@ export const AuthProvider = ({ children }) => {
     getSession()
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        console.log('Auth state changed:', event, session)
-        setSession(session)
-        setUser(session?.user ?? null)
-        if (event === 'PASSWORD_RECOVERY') {
-          setIsPasswordRecovery(true)
-        } else {
-          setIsPasswordRecovery(false)
-        }
-        setLoading(false)
-        setError(null)
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log('Auth state changed:', event, session)
+
+      // Handle OAuth redirect
+      if (event === 'SIGNED_IN' && window.location.hash) {
+        window.history.replaceState({}, document.title, '/')
       }
-    )
+
+      setSession(session)
+      setUser(session?.user ?? null)
+      if (event === 'PASSWORD_RECOVERY') {
+        setIsPasswordRecovery(true)
+      } else {
+        setIsPasswordRecovery(false)
+      }
+      setLoading(false)
+      setError(null)
+    })
 
     return () => subscription.unsubscribe()
   }, [])

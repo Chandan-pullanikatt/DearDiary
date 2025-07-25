@@ -37,6 +37,7 @@ const DiaryPage = () => {
   const [mood, setMood] = useState('')
   const [isListening, setIsListening] = useState(false)
   const recognitionRef = useRef(null)
+  const [liveTranscript, setLiveTranscript] = useState('')
 
   // Modal form state
   const [content, setContent] = useState('')
@@ -69,8 +70,8 @@ const DiaryPage = () => {
     }
 
     const recognition = new SpeechRecognition()
-    recognition.continuous = false
-    recognition.interimResults = false
+    recognition.continuous = true
+    recognition.interimResults = true
     recognition.lang = 'en-US'
 
     recognition.onstart = () => {
@@ -79,6 +80,7 @@ const DiaryPage = () => {
 
     recognition.onend = () => {
       setIsListening(false)
+      setLiveTranscript('')
     }
 
     recognition.onerror = event => {
@@ -88,16 +90,31 @@ const DiaryPage = () => {
     }
 
     recognition.onresult = event => {
-      const transcript = Array.from(event.results)
-        .map(result => result[0])
-        .map(result => result.transcript)
-        .join('')
-      setContent(prevContent =>
-        prevContent ? prevContent.trim() + ' ' + transcript : transcript
-      )
+      let finalTranscript = ''
+      let interimTranscript = ''
+
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        const transcript = event.results[i][0].transcript
+        if (event.results[i].isFinal) {
+          finalTranscript += transcript + ' '
+        } else {
+          interimTranscript += transcript
+        }
+      }
+
+      if (finalTranscript) {
+        setContent(prevContent => prevContent + finalTranscript)
+      }
+      setLiveTranscript(interimTranscript)
     }
 
     recognitionRef.current = recognition
+
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.abort()
+      }
+    }
   }, [])
 
   // Load diary entries from Supabase - wrapped in useCallback to fix dependency warning
@@ -228,10 +245,11 @@ const DiaryPage = () => {
   }
 
   const handleListen = () => {
-    if (isListening || !recognitionRef.current) {
+    if (isListening) {
+      recognitionRef.current?.stop()
       return
     }
-
+    
     if (!recognitionRef.current) {
       toast.error('Speech recognition not initialized.')
       return
@@ -254,6 +272,9 @@ const DiaryPage = () => {
   }
 
   const closeModal = () => {
+    if (isListening) {
+      recognitionRef.current?.stop()
+    }
     setIsModalOpen(false)
     setEditingEntry(null)
     setContent('')
@@ -759,7 +780,7 @@ const DiaryPage = () => {
                         <button
                           type="button"
                           onClick={handleListen}
-                          disabled={isListening || !recognitionRef.current}
+                          disabled={!recognitionRef.current}
                           className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 disabled:cursor-not-allowed disabled:opacity-50 ${
                             isListening
                               ? 'bg-red-500 text-white shadow-lg animate-pulse'
@@ -772,16 +793,20 @@ const DiaryPage = () => {
                       </div>
                       <textarea
                         id="diary-entry-content"
-                        value={content}
-                        onChange={e => setContent(e.target.value)}
+                        value={content + liveTranscript}
+                        onChange={e => {
+                          setContent(e.target.value)
+                          if (liveTranscript) {
+                            setLiveTranscript('')
+                          }
+                        }}
                         rows={8}
                         className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         placeholder="Write about your day, thoughts, feelings, or anything that comes to mind..."
                       />
                       {isListening && (
                         <p className="text-sm text-center text-gray-600 dark:text-gray-400 mt-2">
-                          The microphone will turn off automatically after a
-                          pause.
+                          Click the listening button to stop.
                         </p>
                       )}
                     </div>
