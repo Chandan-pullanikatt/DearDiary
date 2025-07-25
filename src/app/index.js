@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { HashRouter } from 'react-router-dom';
 import { ThemeProvider } from "../contexts/ThemeContext";
-import { AuthProvider } from "../contexts/AuthContext";
+import { AuthProvider, useAuth } from "../contexts/AuthContext";
 import ProtectedRoute from "../components/ProtectedRoute";
 import SupabaseSetupRequired from "../components/SupabaseSetupRequired";
 import { Toaster } from 'react-hot-toast';
@@ -16,6 +16,82 @@ import VerifyPin from "../pages/pin/VerifyPin";
 import SetPin from "../pages/pin/SetPin";
 import UpdatePasswordPage from "../pages/auth/UpdatePasswordPage";
 import AuthLayout from "../pages/auth/AuthLayout";
+
+const AppContent = () => {
+  const { isPasswordRecovery } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isPasswordRecovery) {
+      navigate('/auth/update-password', { replace: true });
+    }
+  }, [isPasswordRecovery, navigate]);
+
+  return (
+    <div className="min-h-screen transition-all duration-300">
+      <Toaster position="top-center" reverseOrder={false} />
+      <Routes>
+        {/* Auth Routes */}
+        <Route path="/auth" element={<AuthLayout />}>
+          <Route index element={<AuthPage />} />
+          <Route path="update-password" element={<UpdatePasswordPage />} />
+        </Route>
+
+        {/* Protected Routes */}
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } 
+        />
+        
+        <Route 
+          path="/notes" 
+          element={
+            <ProtectedRoute>
+              <NotesPage />
+            </ProtectedRoute>
+          } 
+        />
+        
+        <Route 
+          path="/verify-pin" 
+          element={
+            <ProtectedRoute>
+              <VerifyPin />
+            </ProtectedRoute>
+          } 
+        />
+        
+        <Route 
+          path="/set-pin" 
+          element={
+            <ProtectedRoute>
+              <SetPin />
+            </ProtectedRoute>
+          } 
+        />
+        
+        <Route 
+          path="/diary" 
+          element={
+            <ProtectedRoute>
+              <DiaryPage />
+            </ProtectedRoute>
+          } 
+        />
+
+        {/* Default redirect */}
+        <Route path="/" element={<AuthPage />} />
+        
+        {/* Catch all route - redirect to login */}
+        <Route path="*" element={<AuthPage />} />
+      </Routes>
+    </div>
+  );
+};
 
 function App() {
   const [supabaseConfigured, setSupabaseConfigured] = useState(null);
@@ -74,68 +150,7 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <HashRouter>
-          <div className="min-h-screen transition-all duration-300">
-            <Toaster position="top-center" reverseOrder={false} />
-            <Routes>
-              {/* Auth Routes */}
-              <Route path="/auth" element={<AuthLayout />}>
-                <Route index element={<AuthPage />} />
-                <Route path="update-password" element={<UpdatePasswordPage />} />
-              </Route>
-
-              {/* Protected Routes */}
-              <Route 
-                path="/dashboard" 
-                element={
-                  <ProtectedRoute>
-                    <Dashboard />
-                  </ProtectedRoute>
-                } 
-              />
-              
-              <Route 
-                path="/notes" 
-                element={
-                  <ProtectedRoute>
-                    <NotesPage />
-                  </ProtectedRoute>
-                } 
-              />
-              
-              <Route 
-                path="/verify-pin" 
-                element={
-                  <ProtectedRoute>
-                    <VerifyPin />
-                  </ProtectedRoute>
-                } 
-              />
-              
-              <Route 
-                path="/set-pin" 
-                element={
-                  <ProtectedRoute>
-                    <SetPin />
-                  </ProtectedRoute>
-                } 
-              />
-              
-              <Route 
-                path="/diary" 
-                element={
-                  <ProtectedRoute>
-                    <DiaryPage />
-                  </ProtectedRoute>
-                } 
-              />
-
-              {/* Default redirect */}
-              <Route path="/" element={<AuthPage />} />
-              
-              {/* Catch all route - redirect to login */}
-              <Route path="*" element={<AuthPage />} />
-            </Routes>
-          </div>
+          <AppContent />
         </HashRouter>
       </AuthProvider>
     </ThemeProvider>

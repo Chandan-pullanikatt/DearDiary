@@ -121,7 +121,9 @@ export const AuthProvider = ({ children }) => {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: getURL()
+          redirectTo: process.env.NODE_ENV === 'production'
+            ? 'https://chandan-pullanikatt.github.io/DearDiary/'
+            : getURL(),
         }
       })
       
@@ -168,7 +170,9 @@ export const AuthProvider = ({ children }) => {
       setError(null)
       
       const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: getURL()
+        redirectTo: process.env.NODE_ENV === 'production'
+          ? 'https://chandan-pullanikatt.github.io/DearDiary/auth/update-password'
+          : getURL('/auth/update-password'),
       })
       
       if (error) throw error
