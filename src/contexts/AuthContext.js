@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { supabase } from '../config/supabase'
-import getURL from '../utils/utils'
 
 const AuthContext = createContext()
 
@@ -18,6 +17,17 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [isPasswordRecovery, setIsPasswordRecovery] = useState(false)
+
+  const getProductionURL = (path = '') => {
+    const baseURL = 'https://chandan-pullanikatt.github.io/DearDiary'
+    return `${baseURL}${path}`
+  }
+
+  const getRedirectURL = (path = '') => {
+    return process.env.NODE_ENV === 'production'
+      ? getProductionURL(path)
+      : `http://localhost:3000${path}`
+  }
 
   useEffect(() => {
     // Get initial session
@@ -73,7 +83,7 @@ export const AuthProvider = ({ children }) => {
         email,
         password,
         options: {
-          emailRedirectTo: getURL()
+          emailRedirectTo: getRedirectURL()
         }
       })
       
@@ -121,9 +131,7 @@ export const AuthProvider = ({ children }) => {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: process.env.NODE_ENV === 'production'
-            ? 'https://chandan-pullanikatt.github.io/DearDiary/'
-            : getURL(),
+          redirectTo: getRedirectURL()
         }
       })
       
@@ -170,9 +178,7 @@ export const AuthProvider = ({ children }) => {
       setError(null)
       
       const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: process.env.NODE_ENV === 'production'
-          ? 'https://chandan-pullanikatt.github.io/DearDiary/auth/update-password'
-          : getURL('/auth/update-password'),
+        redirectTo: getRedirectURL('/auth/update-password'),
       })
       
       if (error) throw error
